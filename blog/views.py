@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from app.models import Blog
+from assignments.models import About
 
 
 def home(request):
@@ -7,8 +8,13 @@ def home(request):
         "updated_at"
     )
     posts = Blog.objects.filter(is_featured=False, status="Published")
-    context = {
-        "featured_posts": featured_posts,
-        "posts": posts,
-    }
+
+    # Fetch about us
+
+    try:
+        about = About.objects.get()
+    except:
+        about = None
+
+    context = {"featured_posts": featured_posts, "posts": posts, "about": about}
     return render(request, "home.html", context)
