@@ -45,13 +45,14 @@ def login(request):
             user = auth.authenticate(username=username, password=password)
             if user is not None:
                 auth.login(request, user)
-            return redirect("home")
+            return redirect("dashboard")
     else:
         form = AuthenticationForm()
     context = {"form": form}
     return render(request, "login.html", context)
 
 
+# editor1: mayank0123
 def logout(request):
     auth.logout(request)
     return redirect("home")
